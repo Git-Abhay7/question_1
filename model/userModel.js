@@ -3,20 +3,20 @@ const schema = mongoose.Schema
 const userKey = new schema({
 
     firstName: {
-        type: String,
-        required: true
-    },
+                type: String,
+                required: true
+               },
     lastName: {
-        type: String
-    },
+               type: String
+              },
     email: {
-        type: String,
-        required: true
-    },
+            type: String,
+            required: true
+           },
     password: {
-        type: Number,
-        required:true
-    }
+               type: Number,
+               required:true
+              }
 },
     {
         timestamps: true
