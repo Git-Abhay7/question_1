@@ -3,15 +3,15 @@ const schema = mongoose.Schema
 const userProfilesKey = new schema({
     
     user_id:{
-        type: schema.Types.ObjectId,
-        ref: "user"
-    },
+             type: schema.Types.ObjectId,
+             ref: "user"
+            },
     dob: {
-        type: String
-    },
+          type: String
+         },
     mobileNumber: {
-        type: String
-    },
+                   type: String
+                  },
 },
     {
         timestamps: true
