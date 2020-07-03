@@ -3,8 +3,6 @@ const bodyParser=require("body-parser")
 const app = express();
 const port = 7000;
 require("./dbConnection/connection")
-
-
 const userRoute= require("./routes/userRoutes")
 const profileRoute = require("./routes/profileRoute")
 app.get('/',(req,res)=>{
@@ -12,7 +10,6 @@ app.get('/',(req,res)=>{
 })
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
-
 app.use("/user",userRoute)
 app.use("/userProfile",profileRoute)
 
