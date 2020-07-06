@@ -1,6 +1,6 @@
-var router = require("express").Router()
+var router = require("express").Router();
 const profileController = require("../controller/profileController");
 
-router.post('/profile',profileController.profile)
+router.post("/profile", profileController.profile);
 
-module.exports=router;
+module.exports = router;
