@@ -16,20 +16,20 @@ module.exports = {
           responseMessage: "UserId already exist.",
         });
       } else {
-        new profile(req.body).save((error, saved) => {
-          if (error) {
+        new profile(req.body).save( async (error, newProfile) => {
+            try{
+                await res.json({
+                  responseCode: 200,
+                  responseMessage: "profile added successfully",
+                });
+              } catch (error) {
             res.json({
               responseCode: 500,
               responseMessage: "Internal server error.",
             });
-          } else {
-            res.json({
-              responseCode: 200,
-              responseMessage: "profile added successfully",
-            });
-          }
-        });
-      }
+          } 
+        })
+    }
     } catch (error) {
       res.json({
         responseCode: 500,
