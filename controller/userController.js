@@ -1,10 +1,12 @@
 var user = require("../model/userModel");
 const bcrypt = require("bcrypt");
+const { check, validationResult } = require("express-validator");
 
 module.exports = {
   signUp: async (req, res) => {
-    if (!req.body.email) {
-      res.send({ responseCode: 404, responseMessage: "email is required !" });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors });
     }
     var query = { email: req.body.email };
     const result = await user.findOne(query);
@@ -29,7 +31,7 @@ module.exports = {
             } else {
               res.json({
                 responseCode: 200,
-                responseMessage: "Signup successfully"
+                responseMessage: "Signup successfully",
               });
             }
           });

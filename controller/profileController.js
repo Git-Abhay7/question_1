@@ -1,9 +1,11 @@
 const profile = require("../model/usersProfile");
 const user = require("../model/userModel");
+var { check, validationResult } = require("express-validator");
 module.exports = {
   profile: async (req, res) => {
-    if (!req.body.user_id) {
-      res.send({ responseCode: 404, responseMessage: "User id is required !" });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
     const result = await profile.findOne({ user_id: req.body.user_id });
 
@@ -11,7 +13,7 @@ module.exports = {
       if (result) {
         res.json({
           responseCode: 409,
-          responseMessage: "User already exist.",
+          responseMessage: "UserId already exist.",
         });
       } else {
         new profile(req.body).save((error, saved) => {
