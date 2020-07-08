@@ -1,45 +1,25 @@
 var user = require("../model/userModel");
+const validation = require("../commonFunction/validationFun");
+var { Error_Code } = require("../commonFunction/utils");
+var { Error_Message } = require("../commonFunction/utils");
+var { Success_Message } = require("../commonFunction/utils");
+var { Success_Code } = require("../commonFunction/utils");
+
 const bcrypt = require("bcrypt");
-const { check, validationResult } = require("express-validator");
 
 module.exports = {
   signUp: async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors });
-    }
-    var query = { email: req.body.email };
-    const result = await user.findOne(query);
+    const result1 = await user.signUp_1(req.body, res);
     try {
-      if (result) {
-        if (result.email == req.body.email) {
-          res.json({
-            responseCode: 409,
-            responseMessage: "Email already exist.",
-          });
-        }
-      } else {
-        const saltRounds = 10;
-        try {
-          var hash = await bcrypt.hash(req.body.password, saltRounds);
-          req.body.password = hash;
-          new user(req.body).save();
-          res.json({
-            responseCode: 200,
-            responseMessage: "Signup successfully",
-          });
-        } catch (err) {
-          res.json({
-            responseCode: 500,
-            responseMessage: "Internal server error.",
-          });
-        }
-      }
+      const saltRounds = 10;
+      var hash = await bcrypt.hash(req.body.password, saltRounds);
+      req.body.password = hash;
+      var saved = await new user(req.body).save();
+      res
+        .status(Success_Code.Success)
+        .send(Success_Message.SignUp_Successfully);
     } catch (error) {
-      res.json({
-        responseCode: 500,
-        responseMessage: "Internal server error.",
-      });
+      res.status(Error_Code.InternalError).send(Error_Message.InternalError);
     }
   },
 };

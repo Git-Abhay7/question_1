@@ -1,39 +1,17 @@
 const profile = require("../model/usersProfile");
-const user = require("../model/userModel");
-var { check, validationResult } = require("express-validator");
+var { Error_Code } = require("../commonFunction/utils");
+var { Error_Message } = require("../commonFunction/utils");
+var { Success_Message } = require("../commonFunction/utils");
+var { Success_Code } = require("../commonFunction/utils");
+
 module.exports = {
   profile: async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    const result = await profile.findOne({ user_id: req.body.user_id });
-
+    const result = await profile.signUp_1(req.body, res);
     try {
-      if (result) {
-        res.json({
-          responseCode: 409,
-          responseMessage: "UserId already exist.",
-        });
-      } else {
-        var data = await new profile(req.body).save();
-        try {
-          res.json({
-            responseCode: 200,
-            responseMessage: "profile added successfully",
-          });
-        } catch (error) {
-          res.json({
-            responseCode: 500,
-            responseMessage: "Internal server error.",
-          });
-        }
-      }
+      var data = await new profile(req.body).save();
+      res.status(Success_Code.Success).send(Success_Message.profileAdded);
     } catch (error) {
-      res.json({
-        responseCode: 500,
-        responseMessage: "Internal server error.",
-      });
+      res.status(Error_Code.InternalError).send(Error_Message.InternalError);
     }
   },
 };
