@@ -20,7 +20,7 @@ const userProfilesKey = new schema(
 );
 const profileModel = mongoose.model("profile", userProfilesKey, "profile");
 
-profileModel.SIGNUP = async (body, res) => {
+(profileModel.SIGNUP = async (body, res) => {
   try {
     const result = await profileModel.findOne({ user_id: body.user_id });
     if (result) {
@@ -35,5 +35,25 @@ profileModel.SIGNUP = async (body, res) => {
       .status(utils.Error_Code.InternalError)
       .send(utils.Error_Message.InternalError);
   }
-};
+}),
+  (profileModel["AVG_AGE"] = async (res) => {
+    console.log("ohh here!!!");
+
+    try {
+      var data = await profileModel.find();
+      //console.log(data)
+      for (var i = 0; i < data.length; i++) {
+        dateofbirth = data[i].dob;
+
+        spl = dateofbirth.split("-");
+        // console.log(spl[2])
+        var age = new Date().getFullYear() - spl[2];
+        console.log(age);
+      }
+    } catch {
+      res
+        .status(utils.Error_Code.InternalError)
+        .send(utils.Error_Message.InternalError);
+    }
+  });
 module.exports = profileModel;

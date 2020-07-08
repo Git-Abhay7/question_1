@@ -5,5 +5,8 @@ const { create_2 } = require("../validators/user");
 const profileController = require("../controller/profileController");
 
 router.post("/profile", [create_2(), validation], profileController.profile);
+router.post("/avg-age",  profileController.avgAge);
+
+
 
 module.exports = router;

@@ -21,5 +21,5 @@ module.exports = {
     } catch (error) {
       res.status(Error_Code.InternalError).send(Error_Message.InternalError);
     }
-  },
+  }
 };
