@@ -25,7 +25,7 @@ const userKey = new schema(
 //userKey.pre("");
 const UserModel = mongoose.model("user", userKey, "user");
 
-UserModel["signUp_1"] = async (body, res) => {
+UserModel["SIGNUP"] = async (body, res) => {
   try {
     const result = await UserModel.findOne({ email: body.email });
     if (result) {
