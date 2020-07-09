@@ -11,12 +11,14 @@ module.exports = {
       const saltRounds = 10;
       var hash = await bcrypt.hash(req.body.password, saltRounds);
       req.body.password = hash;
-      var saved = await new user(req.body).save();
+      await new user(req.body).save();
       res
         .status(utils.Success_Code.Success)
         .send(utils.Success_Message.SignUp_Successfully);
     } catch (error) {
-      res.status(utils.Error_Code.InternalError).send(utils.Error_Message.InternalError);
+      res
+        .status(utils.Error_Code.InternalError)
+        .send(utils.Error_Message.InternalError);
     }
-  }
+  },
 };

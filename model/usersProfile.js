@@ -37,22 +37,37 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
   }
 }),
   (profileModel["AVG_AGE"] = async (res) => {
-   
     try {
       var data = await profileModel.find();
       var sum = 0;
       data.forEach((word) => {
         dateofbirth = word.dob;
         spl = dateofbirth.split("-");
-        var age = new Date().getFullYear() - spl[2];
+        var age = new Date().getFullYear() - spl[0];
         sum = sum + age;
         avg = sum / data.length;
-       
       });
-      return avg;
+      return Math.round(avg);
     } catch {
       res
         .status(utils.Error_Code.InternalError)
+        .send(utils.Error_Message.InternalError);
+    }
+  }),
+  (profileModel.DELETEUSER = async (res) => {
+    try {
+      var fetch = await profileModel.find();
+      var arr = [];
+      fetch.forEach((word) => {
+        dateofbirth = word.dob;
+        spl = dateofbirth.split("-");
+        var get = new Date().getFullYear() - spl[0];
+        age = arr.push(get);
+      });
+      return age;
+    } catch {
+      res
+        .status(utils.Error_Code.Internal_Error)
         .send(utils.Error_Message.InternalError);
     }
   });

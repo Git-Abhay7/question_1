@@ -4,6 +4,7 @@ const { valid } = require("../validators/user");
 
 const profileController = require("../controller/profileController");
 router.post("/profile", [valid(), validation], profileController.profile);
-router.post("/avg-age", profileController.avgAge);
+router.get("/avg-age", profileController.avgAge);
+router.get("/delUser", profileController.deleteUser);
 
 module.exports = router;

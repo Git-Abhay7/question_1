@@ -1,5 +1,5 @@
 module.exports.Error_Code = Object.freeze({
-  Internal_Error: "500",
+  Internal_Error: 500,
   AlreadyExist: 409,
   NotFound: 404,
 });

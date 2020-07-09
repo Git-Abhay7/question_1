@@ -20,13 +20,22 @@ module.exports = {
     try {
       res.send({
         responseCode: 200,
-        resposneMessage: "Avergae Age Of all Users-",
-        myres,
+        resposneMessage: "Avergae Age Of all Users => " + myres + "yr ",
       });
     } catch (error) {
       res
         .status(utils.Error_Code.InternalError)
         .send(utils.Error_Message.InternalError);
     }
+  },
+  deleteUser: async (req, res) => {
+    var result = await profile.DELETEUSER( res);
+   try{
+    
+   }catch{
+    res
+    .status(utils.Error_Code.InternalError)
+    .send(utils.Error_Message.InternalError);
+   }
   },
 };

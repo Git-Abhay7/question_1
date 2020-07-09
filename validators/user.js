@@ -17,7 +17,7 @@ module.exports = {
       check("mobileNumber")
         .notEmpty()
         .withMessage("Please fill mobileNumber field."),
-      check("dob").notEmpty().withMessage("Please fill dob field.").isISO8601('dd-mm-yyyy'),
+      check("dob").notEmpty().withMessage("Please fill dob field.").isISO8601(),
     ];
   },
 };
