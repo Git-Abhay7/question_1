@@ -37,19 +37,19 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
   }
 }),
   (profileModel["AVG_AGE"] = async (res) => {
-    console.log("ohh here!!!");
-
+   
     try {
       var data = await profileModel.find();
-      //console.log(data)
-      for (var i = 0; i < data.length; i++) {
-        dateofbirth = data[i].dob;
-
+      var sum = 0;
+      data.forEach((word) => {
+        dateofbirth = word.dob;
         spl = dateofbirth.split("-");
-        // console.log(spl[2])
         var age = new Date().getFullYear() - spl[2];
-        console.log(age);
-      }
+        sum = sum + age;
+        avg = sum / data.length;
+       
+      });
+      return avg;
     } catch {
       res
         .status(utils.Error_Code.InternalError)

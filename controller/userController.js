@@ -1,9 +1,6 @@
 var user = require("../model/userModel");
 const validation = require("../commonFunction/validationFun");
-var { Error_Code } = require("../commonFunction/utils");
-var { Error_Message } = require("../commonFunction/utils");
-var { Success_Message } = require("../commonFunction/utils");
-var { Success_Code } = require("../commonFunction/utils");
+var utils = require("../commonFunction/utils");
 
 const bcrypt = require("bcrypt");
 
@@ -16,10 +13,10 @@ module.exports = {
       req.body.password = hash;
       var saved = await new user(req.body).save();
       res
-        .status(Success_Code.Success)
-        .send(Success_Message.SignUp_Successfully);
+        .status(utils.Success_Code.Success)
+        .send(utils.Success_Message.SignUp_Successfully);
     } catch (error) {
-      res.status(Error_Code.InternalError).send(Error_Message.InternalError);
+      res.status(utils.Error_Code.InternalError).send(utils.Error_Message.InternalError);
     }
   }
 };

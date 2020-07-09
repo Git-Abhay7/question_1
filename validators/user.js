@@ -11,13 +11,13 @@ module.exports = {
         .withMessage("Please fill password field with atleast length--> 5."),
     ];
   },
-  create_2: () => {
+  valid: () => {
     return [
       check("user_id").notEmpty().withMessage("Please fill userId field"),
       check("mobileNumber")
         .notEmpty()
         .withMessage("Please fill mobileNumber field."),
-      check("dob").notEmpty().withMessage("Please fill dob field."),
+      check("dob").notEmpty().withMessage("Please fill dob field.").isISO8601('dd-mm-yyyy'),
     ];
   },
 };

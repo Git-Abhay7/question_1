@@ -16,12 +16,13 @@ module.exports = {
     }
   },
   avgAge: async (req, res) => {
-    console.log("1")
     var myres = await profile.AVG_AGE(req.body, res);
     try {
-    console.log("2")
-
-      //console.log(myres);
+      res.send({
+        responseCode: 200,
+        resposneMessage: "Avergae Age Of all Users-",
+        myres,
+      });
     } catch (error) {
       res
         .status(utils.Error_Code.InternalError)
