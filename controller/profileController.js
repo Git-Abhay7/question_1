@@ -29,13 +29,18 @@ module.exports = {
     }
   },
   deleteUser: async (req, res) => {
-    var result = await profile.DELETEUSER( res);
-   try{
-    
-   }catch{
-    res
-    .status(utils.Error_Code.InternalError)
-    .send(utils.Error_Message.InternalError);
-   }
+    var data = await profile.DELETEUSER(res);
+    console.log(data);
+    try {
+      res.send({
+        responseCode: 200,
+        resposneMessage: "more than 25 yr old users Deleted .",
+        data,
+      });
+    } catch (error) {
+      res
+        .status(utils.Error_Code.InternalError)
+        .send(utils.Error_Message.InternalError);
+    }
   },
 };

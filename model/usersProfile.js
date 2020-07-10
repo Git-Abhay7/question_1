@@ -56,16 +56,14 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
   }),
   (profileModel.DELETEUSER = async (res) => {
     try {
-      var fetch = await profileModel.find();
-      var arr = [];
-      fetch.forEach((word) => {
-        dateofbirth = word.dob;
-        spl = dateofbirth.split("-");
-        var get = new Date().getFullYear() - spl[0];
-        age = arr.push(get);
-      });
-      return age;
-    } catch {
+      var year = new Date().getFullYear() - 25;
+      var month = new Date().getMonth() + 1;
+      var date = new Date().getDate();
+      DATE = year + "-" + month + "-" + date;
+      console.log(DATE);
+      var trash = await profileModel.deleteMany({ dob: { $lt: DATE } });
+      return trash;
+    } catch (error) {
       res
         .status(utils.Error_Code.Internal_Error)
         .send(utils.Error_Message.InternalError);
