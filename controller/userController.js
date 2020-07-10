@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
   signUp: async (req, res) => {
-    const result1 = await user.SIGNUP(req.body, res);
+    await user.SignUp(req.body, res);
     try {
       const saltRounds = 10;
       var hash = await bcrypt.hash(req.body.password, saltRounds);

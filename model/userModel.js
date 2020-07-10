@@ -25,9 +25,11 @@ const userKey = new schema(
 //userKey.pre("");
 const UserModel = mongoose.model("user", userKey, "user");
 
-UserModel["SIGNUP"] = async (body, res) => {
+UserModel["SignUp"] = async (body, res) => {
   try {
-    const result = await UserModel.findOne({ email: body.email });
+    const result = await UserModel.findOne({
+      email: body.email,
+    });
     if (result) {
       if (result.email == body.email) {
         res.status(Error_Code.AlreadyExist).send(Error_Message.EmailExist);

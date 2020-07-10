@@ -10,7 +10,11 @@ const profileRoute = require("./routes/profileRoute");
 app.get("/", (req, res) => {
   res.send("<h1>SERVER IS RUNNING SMOOTHLY </h1>");
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 
 app.use("/user", userRoute);

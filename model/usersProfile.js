@@ -20,23 +20,23 @@ const userProfilesKey = new schema(
 );
 const profileModel = mongoose.model("profile", userProfilesKey, "profile");
 
-(profileModel.SIGNUP = async (body, res) => {
+(profileModel.SignUp = async (body, res) => {
   try {
-    const result = await profileModel.findOne({ user_id: body.user_id });
+    const result = await profileModel.findOne({
+      user_id: body.user_id,
+    });
     if (result) {
       if (result.user_id == body.user_id) {
-        return res
+        res
           .status(utils.Error_Code.AlreadyExist)
           .send(utils.Error_Message.IdExist);
       }
     }
   } catch {
-    res
-      .status(utils.Error_Code.InternalError)
-      .send(utils.Error_Message.InternalError);
+    throw error;
   }
 }),
-  (profileModel["AVG_AGE"] = async (res) => {
+  (profileModel["AvgAge"] = async (req, res) => {
     try {
       var data = await profileModel.find();
       var sum = 0;
@@ -48,25 +48,24 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
         avg = sum / data.length;
       });
       return Math.round(avg);
-    } catch {
-      res
-        .status(utils.Error_Code.InternalError)
-        .send(utils.Error_Message.InternalError);
+    } catch (error) {
+      throw error;
     }
   }),
-  (profileModel.DELETEUSER = async (res) => {
+  (profileModel.DeleteUser = async (res) => {
     try {
       var year = new Date().getFullYear() - 25;
       var month = new Date().getMonth() + 1;
       var date = new Date().getDate();
       DATE = year + "-" + month + "-" + date;
-      console.log(DATE);
-      var trash = await profileModel.deleteMany({ dob: { $lt: DATE } });
+      var trash = await profileModel.deleteMany({
+        dob: {
+          $lt: DATE,
+        },
+      });
       return trash;
     } catch (error) {
-      res
-        .status(utils.Error_Code.Internal_Error)
-        .send(utils.Error_Message.InternalError);
+      throw error;
     }
-  });
-module.exports = profileModel;
+  }),
+  (module.exports = profileModel);

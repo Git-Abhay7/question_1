@@ -3,7 +3,7 @@ var utils = require("../commonFunction/utils");
 
 module.exports = {
   profile: async (req, res) => {
-    await profile.SIGNUP(req.body, res);
+    await profile.SignUp(req.body, res);
     try {
       await new profile(req.body).save();
       res
@@ -16,7 +16,7 @@ module.exports = {
     }
   },
   avgAge: async (req, res) => {
-    var myres = await profile.AVG_AGE(req.body, res);
+    var myres = await profile.AvgAge(req.body, res);
     try {
       res.send({
         responseCode: 200,
@@ -29,7 +29,7 @@ module.exports = {
     }
   },
   deleteUser: async (req, res) => {
-    var data = await profile.DELETEUSER(res);
+    var data = await profile.DeleteUser(res);
     console.log(data);
     try {
       res.send({
