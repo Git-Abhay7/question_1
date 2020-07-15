@@ -3,7 +3,7 @@ var utils = require("../commonFunction/utils");
 
 module.exports = {
   profile: async (req, res) => {
-    await profile.SignUp(req.body, res);
+    await profile.SignUp(req.body,res);
     try {
       await new profile(req.body).save();
       res
@@ -16,7 +16,7 @@ module.exports = {
     }
   },
   avgAge: async (req, res) => {
-    var myres = await profile.AvgAge(req.body, res);
+    var myres = await profile.AvgAge();
     try {
       res.send({
         responseCode: 200,
@@ -29,8 +29,7 @@ module.exports = {
     }
   },
   deleteUser: async (req, res) => {
-    var data = await profile.DeleteUser(res);
-    console.log(data);
+    var data = await profile.DeleteUser();
     try {
       res.send({
         responseCode: 200,
@@ -38,9 +37,7 @@ module.exports = {
         data,
       });
     } catch (error) {
-      res
-        .status(utils.Error_Code.InternalError)
-        .send(utils.Error_Message.InternalError);
+      throw error;
     }
   },
 };

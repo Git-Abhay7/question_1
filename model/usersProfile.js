@@ -32,11 +32,11 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
           .send(utils.Error_Message.IdExist);
       }
     }
-  } catch {
+  } catch (error) {
     throw error;
   }
 }),
-  (profileModel["AvgAge"] = async (req, res) => {
+  (profileModel["AvgAge"] = async () => {
     try {
       var data = await profileModel.find();
       var sum = 0;
@@ -52,7 +52,7 @@ const profileModel = mongoose.model("profile", userProfilesKey, "profile");
       throw error;
     }
   }),
-  (profileModel.DeleteUser = async (res) => {
+  (profileModel.DeleteUser = async () => {
     try {
       var year = new Date().getFullYear() - 25;
       var month = new Date().getMonth() + 1;

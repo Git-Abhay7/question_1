@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
 
 module.exports = {
-  create: () => {
+  create: () => { 
     return [
       check("firstName").notEmpty().withMessage("Please fill firstName  field"),
       check("email").notEmpty().withMessage("Please fill Email field."),

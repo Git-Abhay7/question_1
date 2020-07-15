@@ -1,12 +1,15 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/database", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+const Sequelize = require("sequelize");
+const connect = new Sequelize("user", "root", "MySQL#2309", {
+  host: "localhost",
+  dialect: "mysql",
+  logging: false,
 });
-mongoose.connection
-  .once("open", () => {
-    console.log("Database created successfully");
-  })
-  .on("error", (error) => {
-    console.log("Error occured.");
-  });
+
+try {
+  connect.authenticate();
+  console.log("Connection has been established successfully.");
+} catch (error) {
+  console.error("Unable to connect to the database:", error);
+}
+
+module.exports = connect;
